@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Energías</title>
+</head>
+<body>
+    <h1>Calculadora de Energías</h1>
+
+    <label for="mass">Masa (kg):</label>
+    <input type="number" id="mass" placeholder="Ingresa la masa"><br><br>
+
+    <label for="velocity">Velocidad (m/s):</label>
+    <input type="number" id="velocity" placeholder="Ingresa la velocidad"><br><br>
+
+    <label for="height">Altura (m):</label>
+    <input type="number" id="height" placeholder="Ingresa la altura"><br><br>
+
+    <button id="calculate">Calcular</button><br><br>
+
+    <h2>Resultados:</h2>
+    <p><strong>Energía Cinética:</strong> <span id="kinetic-energy">0</span> J</p>
+    <p id="kinetic-procedure"></p>
+
+    <p><strong>Energía Potencial:</strong> <span id="potential-energy">0</span> J</p>
+    <p id="potential-procedure"></p>
+
+    <p><strong>Energía Mecánica:</strong> <span id="mechanical-energy">0</span> J</p>
+    <p id="mechanical-procedure"></p>
+
+    <script>
+        document.getElementById("calculate").addEventListener("click", function () {
+            // Capturar los valores de entrada
+            const mass = parseFloat(document.getElementById("mass").value);
+            const velocity = parseFloat(document.getElementById("velocity").value);
+            const height = parseFloat(document.getElementById("height").value);
+            const gravity = 9.8; // Constante de gravedad
+
+            // Validar entradas
+            if (isNaN(mass) || isNaN(velocity) || isNaN(height)) {
+                alert("Por favor, ingresa valores válidos.");
+                return;
+            }
+
+            // Cálculos
+            const kineticEnergy = 0.5 * mass * velocity ** 2; // Energía cinética
+            const potentialEnergy = mass * gravity * height;  // Energía potencial
+            const mechanicalEnergy = kineticEnergy + potentialEnergy; // Energía mecánica
+
+            // Mostrar resultados
+            document.getElementById("kinetic-energy").textContent = kineticEnergy.toFixed(2);
+            document.getElementById("kinetic-procedure").textContent = 
+                `Fórmula: 0.5 × masa × velocidad² = 0.5 × ${mass} × (${velocity}²) = ${kineticEnergy.toFixed(2)} J`;
+
+            document.getElementById("potential-energy").textContent = potentialEnergy.toFixed(2);
+            document.getElementById("potential-procedure").textContent = 
+                `Fórmula: masa × gravedad × altura = ${mass} × ${gravity} × ${height} = ${potentialEnergy.toFixed(2)} J`;
+
+            document.getElementById("mechanical-energy").textContent = mechanicalEnergy.toFixed(2);
+            document.getElementById("mechanical-procedure").textContent = 
+                `Fórmula: Energía Cinética + Energía Potencial = ${kineticEnergy.toFixed(2)} + ${potentialEnergy.toFixed(2)} = ${mechanicalEnergy.toFixed(2)} J`;
+
+            // Limpiar los campos de entrada
+            document.getElementById("mass").value = "";
+            document.getElementById("velocity").value = "";
+            document.getElementById("height").value = "";
+        });
+    </script>
+</body>
+</html>
